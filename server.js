@@ -28,15 +28,15 @@ app.get('/', (req, res) => {
     return res.send('Done')
 
 })
-app.get('/api/get/', (req, res) => {
-  return res.sendFile(path.join(`${__dirname}/uploads/photo_1592128185746_6046689.jpg`));
-
+app.get('/api/get/:picture', (req, res) => {
+  const {picture} = req.params;
+  return res.sendFile(path.join(`${__dirname}/uploads/${picture}`));
 })
 
 app.post('/api/upload', upload.array('photo', 3), (req, res) => {
   let picture =[]
   req.files.forEach(file => {
-    picture.push(`${__dirname}/uploads/${file.filename}`)
+    picture.push(file.filename)
   });
   res.status(200).json({
     message: 'success!',
