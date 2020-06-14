@@ -28,6 +28,10 @@ app.get('/', (req, res) => {
     return res.send('Done')
 
 })
+app.get('/api/get/', (req, res) => {
+  return res.sendFile(path.join(`${__dirname}/uploads/photo_1592128185746_6046689.jpg`));
+
+})
 
 app.post('/api/upload', upload.array('photo', 3), (req, res) => {
   let picture =[]
