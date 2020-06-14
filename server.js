@@ -36,7 +36,7 @@ app.get('/api/get/:picture', (req, res) => {
 app.post('/api/upload', upload.array('photo', 3), (req, res) => {
   let picture =[]
   req.files.forEach(file => {
-    picture.push(file.filename)
+    picture.push(`https://my-picture-api.herokuapp.com/api/get${file.filename}`)
   });
   res.status(200).json({
     message: 'success!',
