@@ -33,7 +33,7 @@ app.get('/api/get/:picture', (req, res) => {
   return res.sendFile(path.join(`${__dirname}/uploads/${picture}`));
 })
 
-app.post('/api/upload', upload.array('photo', 3), (req, res) => {
+app.post('/api/upload', upload.array('photo', 10), (req, res) => {
   let picture =[]
   req.files.forEach(file => {
     picture.push(`https://my-picture-api.herokuapp.com/api/get/${file.filename}`)
