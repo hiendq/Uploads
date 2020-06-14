@@ -24,8 +24,8 @@ const upload = multer({ storage: Storage })
 
 app.get('/', (req, res) => {
 
-     res.sendFile(path.join(`${__dirname}/uploads/photo_1592127650721_11.jpg`));
-    //return res.send('Done')
+    // res.sendFile(path.join(`${__dirname}/uploads/photo_1592127650721_11.jpg`));
+    return res.send('Done')
 
 })
 
