@@ -14,6 +14,7 @@ const meta = new Datauri();
 
 const app = Express()
 app.use(bodyParser.json())
+const port = process.env.PORT || 5000;
 
 const dataUri = file => {
   console.log("FILE NAME",file.originalname,path.extname(file.originalname))
@@ -29,29 +30,16 @@ cloudinary.config({
 const getFiles = (req)=>{
   return req.files.map(file=>dataUri(file).content);
 }
+
 const uploadPhoto = async (file) => {
   const result = await cloudinary.uploader.upload(file);
   return result;
 };
-const port = process.env.PORT || 5000;
-
-const Storage = multer.diskStorage({
-  destination(req, file, callback) {
-    callback(null, './uploads')
-  },
-  filename(req, file, callback) {
-    callback(null, `${file.fieldname}_${Date.now()}_${file.originalname}`)
-  },
-})
-
-const upload = multer({ storage: Storage })
 
 app.get('/', (req, res) => {
-
-    // res.sendFile(path.join(`${__dirname}/uploads/photo_1592127650721_11.jpg`));
     return res.send('Done')
-
 })
+
 app.post('/api/upload', upload, async(req, res) => {
   let picture =[]
   const files = getFiles(req);
